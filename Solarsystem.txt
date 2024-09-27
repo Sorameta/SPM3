@@ -1,6 +1,8 @@
+Sonne
 Merkur
 Venus
 Erde
 Mars
 Jupiter
 Saturn
+Neptun
