@@ -1,6 +1,5 @@
 Merkur
 Venus
-Mars
 Erde
+Mars
 Jupiter
-Uranus
