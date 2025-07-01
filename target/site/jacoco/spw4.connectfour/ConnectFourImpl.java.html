@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConnectFourImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ConnectFour Web Application</a> &gt; <a href="index.source.html" class="el_package">spw4.connectfour</a> &gt; <span class="el_source">ConnectFourImpl.java</span></div><h1>ConnectFourImpl.java</h1><pre class="source lang-java linenums">package spw4.connectfour;
+
+public class ConnectFourImpl implements ConnectFour {
+    public Board board;
+    private Player currentPlayer;
+    private boolean isGameOver;
+    private Player winner;
+
+
+<span class="fc" id="L10">    public ConnectFourImpl(Player playerOnTurn) {</span>
+<span class="fc bfc" id="L11" title="All 4 branches covered.">        if (playerOnTurn == null || playerOnTurn == Player.none) {</span>
+<span class="fc" id="L12">            throw new IllegalArgumentException(&quot;No Player provided&quot;);</span>
+        }
+<span class="fc" id="L14">        this.currentPlayer = playerOnTurn;</span>
+<span class="fc" id="L15">        this.board = new Board();</span>
+<span class="fc" id="L16">        this.winner = Player.none;</span>
+<span class="fc" id="L17">    }</span>
+
+<span class="fc" id="L19">    public ConnectFourImpl(Player[][] board, Player playerOnTurn) {</span>
+<span class="fc bfc" id="L20" title="All 4 branches covered.">        if (playerOnTurn == null || playerOnTurn == Player.none) {</span>
+<span class="fc" id="L21">            throw new IllegalArgumentException(&quot;No Player provided&quot;);</span>
+        }
+<span class="fc" id="L23">        this.currentPlayer = playerOnTurn;</span>
+<span class="fc" id="L24">        this.board = new Board(board);</span>
+<span class="fc" id="L25">        this.winner = Player.none;</span>
+<span class="fc" id="L26">    }</span>
+
+    public Player getPlayerAt(int row, int col) {
+<span class="fc" id="L29">        return board.getPlayerAt(row, col);</span>
+    }
+
+    @Override
+    public Player getPlayerOnTurn() {
+<span class="nc" id="L34">        return currentPlayer;</span>
+    }
+
+    public Player getCurrentPlayer() {
+<span class="fc" id="L38">        return currentPlayer;</span>
+    }
+
+    public boolean isGameOver() {
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        if (winner == Player.none) {</span>
+<span class="fc" id="L43">            checkForGameOver();</span>
+        }
+<span class="fc" id="L45">        return isGameOver;</span>
+    }
+
+    public Player getWinner() {
+<span class="fc" id="L49">        return winner;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L54">        StringBuilder sb = new StringBuilder();</span>
+
+<span class="fc" id="L56">        sb.append(&quot;\nPlayer: &quot;);</span>
+<span class="pc bpc" id="L57" title="1 of 3 branches missed.">        switch (currentPlayer) {</span>
+            case red:
+<span class="fc" id="L59">                sb.append(&quot;RED&quot;);</span>
+<span class="fc" id="L60">                break;</span>
+            case yellow:
+<span class="fc" id="L62">                sb.append(&quot;YELLOW&quot;);</span>
+<span class="fc" id="L63">                break;</span>
+            default:
+                break;
+        }
+<span class="fc" id="L67">        sb.append(&quot;\n&quot;);</span>
+<span class="fc" id="L68">        sb.append(board);</span>
+
+<span class="fc" id="L70">        return sb.toString();</span>
+    }
+
+    public void reset(Player playerOnTurn) {
+<span class="fc" id="L74">        this.currentPlayer = playerOnTurn;</span>
+<span class="fc" id="L75">        this.board = new Board();</span>
+<span class="fc" id="L76">    }</span>
+
+    public void drop(int col) {
+<span class="fc" id="L79">        int row = board.dropInCol(col, currentPlayer);</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">        if (row != -1) {</span>
+<span class="fc" id="L81">            checkForGameOver();</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">            if (currentPlayer == Player.red) {</span>
+<span class="fc" id="L83">                currentPlayer = Player.yellow;</span>
+            } else {
+<span class="fc" id="L85">                currentPlayer = Player.red;</span>
+            }
+        }
+<span class="fc" id="L88">    }</span>
+
+    private void checkForGameOver() {
+        // Horizontal Check
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        for (int r = 0; r &lt; board.getHeight(); r++) {</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">            for (int c = 0; c &lt;= board.getWidth() - 4; c++) {</span>
+<span class="fc" id="L94">                boolean win = true;</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">                for (int i = 0; i &lt; 4; i++) {</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">                    if (board.getPlayerAt(r, c + i) != currentPlayer) {</span>
+<span class="fc" id="L97">                        win = false;</span>
+<span class="fc" id="L98">                        break;</span>
+                    }
+                }
+<span class="fc bfc" id="L101" title="All 2 branches covered.">                if (win) {</span>
+<span class="fc" id="L102">                    isGameOver = true;</span>
+<span class="fc" id="L103">                    winner = currentPlayer;</span>
+<span class="fc" id="L104">                    return;</span>
+                }
+            }
+        }
+
+        // Vertical Check
+<span class="fc bfc" id="L110" title="All 2 branches covered.">        for (int c = 0; c &lt; board.getWidth(); c++) {</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">            for (int r = 0; r &lt;= board.getHeight() - 4; r++) {</span>
+<span class="fc" id="L112">                boolean win = true;</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">                for (int i = 0; i &lt; 4; i++) {</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">                    if (board.getPlayerAt(r + i, c) != currentPlayer) {</span>
+<span class="fc" id="L115">                        win = false;</span>
+<span class="fc" id="L116">                        break;</span>
+                    }
+                }
+<span class="fc bfc" id="L119" title="All 2 branches covered.">                if (win) {</span>
+<span class="fc" id="L120">                    isGameOver = true;</span>
+<span class="fc" id="L121">                    winner = currentPlayer;</span>
+<span class="fc" id="L122">                    return;</span>
+                }
+            }
+        }
+
+        // Diagonal (Bottom-Left to Top-Right)
+<span class="fc bfc" id="L128" title="All 2 branches covered.">        for (int r = 0; r &lt;= board.getHeight() - 4; r++) {</span>
+<span class="fc bfc" id="L129" title="All 2 branches covered.">            for (int c = 0; c &lt;= board.getWidth() - 4; c++) {</span>
+<span class="fc" id="L130">                boolean win = true;</span>
+<span class="fc bfc" id="L131" title="All 2 branches covered.">                for (int i = 0; i &lt; 4; i++) {</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">                    if (board.getPlayerAt(r + i, c + i) != currentPlayer) {</span>
+<span class="fc" id="L133">                        win = false;</span>
+<span class="fc" id="L134">                        break;</span>
+                    }
+                }
+<span class="fc bfc" id="L137" title="All 2 branches covered.">                if (win) {</span>
+<span class="fc" id="L138">                    isGameOver = true;</span>
+<span class="fc" id="L139">                    winner = currentPlayer;</span>
+<span class="fc" id="L140">                    return;</span>
+                }
+            }
+        }
+
+        // Diagonal (Top-Left to Bottom-Right)
+<span class="fc bfc" id="L146" title="All 2 branches covered.">        for (int r = 3; r &lt; board.getHeight(); r++) {</span>
+<span class="fc bfc" id="L147" title="All 2 branches covered.">            for (int c = 0; c &lt;= board.getWidth() - 4; c++) {</span>
+<span class="fc" id="L148">                boolean win = true;</span>
+<span class="fc bfc" id="L149" title="All 2 branches covered.">                for (int i = 0; i &lt; 4; i++) {</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">                    if (board.getPlayerAt(r - i, c + i) != currentPlayer) {</span>
+<span class="fc" id="L151">                        win = false;</span>
+<span class="fc" id="L152">                        break;</span>
+                    }
+                }
+<span class="fc bfc" id="L155" title="All 2 branches covered.">                if (win) {</span>
+<span class="fc" id="L156">                    isGameOver = true;</span>
+<span class="fc" id="L157">                    winner = currentPlayer;</span>
+<span class="fc" id="L158">                    return;</span>
+                }
+            }
+        }
+
+        // Check if board is full
+<span class="fc bfc" id="L164" title="All 2 branches covered.">        for (int r = 0; r &lt; board.getHeight(); r++) {</span>
+<span class="fc bfc" id="L165" title="All 2 branches covered.">            for (int c = 0; c &lt; board.getWidth(); c++) {</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">                if (board.getPlayerAt(r, c) == Player.none) {</span>
+<span class="fc" id="L167">                    isGameOver = false;</span>
+<span class="fc" id="L168">                    return;</span>
+                }
+            }
+        }
+<span class="fc" id="L172">        isGameOver = true;</span>
+<span class="fc" id="L173">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

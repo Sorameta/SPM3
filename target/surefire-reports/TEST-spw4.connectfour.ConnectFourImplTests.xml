@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="spw4.connectfour.ConnectFourImplTests" time="2.851" tests="29" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="C:\Users\lukis\Downloads\exercise3-Sorameta-main\exercise3-Sorameta\target\test-classes;C:\Users\lukis\Downloads\exercise3-Sorameta-main\exercise3-Sorameta\target\classes;C:\Users\lukis\.m2\repository\org\junit\jupiter\junit-jupiter\5.12.2\junit-jupiter-5.12.2.jar;C:\Users\lukis\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.12.2\junit-jupiter-api-5.12.2.jar;C:\Users\lukis\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\lukis\.m2\repository\org\junit\platform\junit-platform-commons\1.12.2\junit-platform-commons-1.12.2.jar;C:\Users\lukis\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\lukis\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.12.2\junit-jupiter-params-5.12.2.jar;C:\Users\lukis\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.12.2\junit-jupiter-engine-5.12.2.jar;C:\Users\lukis\.m2\repository\org\junit\platform\junit-platform-engine\1.12.2\junit-platform-engine-1.12.2.jar;C:\Users\lukis\.m2\repository\org\assertj\assertj-core\3.27.3\assertj-core-3.27.3.jar;C:\Users\lukis\.m2\repository\net\bytebuddy\byte-buddy\1.15.11\byte-buddy-1.15.11.jar;C:\Users\lukis\.m2\repository\org\hamcrest\hamcrest\3.0\hamcrest-3.0.jar;C:\Users\lukis\.m2\repository\org\mockito\mockito-core\5.17.0\mockito-core-5.17.0.jar;C:\Users\lukis\.m2\repository\net\bytebuddy\byte-buddy-agent\1.15.11\byte-buddy-agent-1.15.11.jar;C:\Users\lukis\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\lukis\.m2\repository\org\mockito\mockito-junit-jupiter\5.17.0\mockito-junit-jupiter-5.17.0.jar;C:\Users\lukis\.m2\repository\javax\javaee-web-api\8.0.1\javaee-web-api-8.0.1.jar;"/>
+    <property name="java.vm.vendor" value="Microsoft"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://www.microsoft.com"/>
+    <property name="user.timezone" value="Europe/Vienna"/>
+    <property name="os.name" value="Windows 11"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="AT"/>
+    <property name="sun.boot.library.path" value="C:\Users\lukis\.jdks\ms-21.0.7\bin"/>
+    <property name="sun.java.command" value="C:\Users\lukis\AppData\Local\Temp\surefire2870388971220621449\surefirebooter-20250614093016432_3.jar C:\Users\lukis\AppData\Local\Temp\surefire2870388971220621449 2025-06-14T09-30-16_248-jvmRun1 surefire-20250614093016432_1tmp surefire_0-20250614093016432_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="C:\Users\lukis\Downloads\exercise3-Sorameta-main\exercise3-Sorameta\target\test-classes;C:\Users\lukis\Downloads\exercise3-Sorameta-main\exercise3-Sorameta\target\classes;C:\Users\lukis\.m2\repository\org\junit\jupiter\junit-jupiter\5.12.2\junit-jupiter-5.12.2.jar;C:\Users\lukis\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.12.2\junit-jupiter-api-5.12.2.jar;C:\Users\lukis\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\lukis\.m2\repository\org\junit\platform\junit-platform-commons\1.12.2\junit-platform-commons-1.12.2.jar;C:\Users\lukis\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\lukis\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.12.2\junit-jupiter-params-5.12.2.jar;C:\Users\lukis\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.12.2\junit-jupiter-engine-5.12.2.jar;C:\Users\lukis\.m2\repository\org\junit\platform\junit-platform-engine\1.12.2\junit-platform-engine-1.12.2.jar;C:\Users\lukis\.m2\repository\org\assertj\assertj-core\3.27.3\assertj-core-3.27.3.jar;C:\Users\lukis\.m2\repository\net\bytebuddy\byte-buddy\1.15.11\byte-buddy-1.15.11.jar;C:\Users\lukis\.m2\repository\org\hamcrest\hamcrest\3.0\hamcrest-3.0.jar;C:\Users\lukis\.m2\repository\org\mockito\mockito-core\5.17.0\mockito-core-5.17.0.jar;C:\Users\lukis\.m2\repository\net\bytebuddy\byte-buddy-agent\1.15.11\byte-buddy-agent-1.15.11.jar;C:\Users\lukis\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\lukis\.m2\repository\org\mockito\mockito-junit-jupiter\5.17.0\mockito-junit-jupiter-5.17.0.jar;C:\Users\lukis\.m2\repository\javax\javaee-web-api\8.0.1\javaee-web-api-8.0.1.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\lukis"/>
+    <property name="user.language" value="de"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2025-04-15"/>
+    <property name="java.home" value="C:\Users\lukis\.jdks\ms-21.0.7"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="C:\Users\lukis\Downloads\exercise3-Sorameta-main\exercise3-Sorameta"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\lukis\AppData\Local\Temp\surefire2870388971220621449\surefirebooter-20250614093016432_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="21.0.7+6-LTS"/>
+    <property name="user.name" value="lukis"/>
+    <property name="stdout.encoding" value="Cp1252"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Microsoft-11369940"/>
+    <property name="localRepository" value="C:\Users\lukis\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/microsoft/openjdk/issues"/>
+    <property name="java.io.tmpdir" value="C:\Users\lukis\AppData\Local\Temp\"/>
+    <property name="idea.version" value="2024.3.5"/>
+    <property name="java.version" value="21.0.7"/>
+    <property name="user.dir" value="C:\Users\lukis\Downloads\exercise3-Sorameta-main\exercise3-Sorameta"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Users\lukis\.jdks\ms-21.0.7\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;%JAVA_HOME%\bin;%ANT_HOME%\bin;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\FPC\3.2.2\bin\i386-Win32;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\ProgramData\chocolatey\bin;C:\tools\gsudo\Current;C:\Program Files\DDEV;;C:\Program Files\Docker\Docker\resources\bin;D:\4_Semester\SWE\zulu17.56.15-ca-fx-jdk17.0.14-win_x64\bin;D:\4_Semester\SWE\apache-ant-1.10.15-bin\bin;C:\Users\lukis\AppData\Local\Microsoft\WindowsApps;C:\Users\lukis\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\lukis\AppData\Roaming\npm;;."/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="stderr.encoding" value="Cp1252"/>
+    <property name="java.vendor" value="Microsoft"/>
+    <property name="java.vm.version" value="21.0.7+6-LTS"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="65.0"/>
+  </properties>
+  <testcase name="testGameOver_withWinnerHorizontal_returnsTrue" classname="spw4.connectfour.ConnectFourImplTests" time="2.195"/>
+  <testcase name="testGameOver_withWinnerVertical_returnsTrue" classname="spw4.connectfour.ConnectFourImplTests" time="0.003"/>
+  <testcase name="testReset" classname="spw4.connectfour.ConnectFourImplTests" time="0.002"/>
+  <testcase name="testToString" classname="spw4.connectfour.ConnectFourImplTests" time="0.005"/>
+  <testcase name="testGameOver_onEmptyBoard_returnsFalse" classname="spw4.connectfour.ConnectFourImplTests" time="0.003"/>
+  <testcase name="testConstructorWithBoard_withValidPlayers(Player)[1]" classname="spw4.connectfour.ConnectFourImplTests" time="0.003"/>
+  <testcase name="testConstructorWithBoard_withValidPlayers(Player)[2]" classname="spw4.connectfour.ConnectFourImplTests" time="0.002"/>
+  <testcase name="testGameOver_withWinnerVertical_StepByStep_returnsTrue" classname="spw4.connectfour.ConnectFourImplTests" time="0.002"/>
+  <testcase name="testGameOver_withWinnerHorizontal_StepByStep_returnsTrue" classname="spw4.connectfour.ConnectFourImplTests" time="0.002"/>
+  <testcase name="testDrop_DoesNotSwitchPlayer_WhenOutOfBounds(int)[1]" classname="spw4.connectfour.ConnectFourImplTests" time="0.004"/>
+  <testcase name="testDrop_DoesNotSwitchPlayer_WhenOutOfBounds(int)[2]" classname="spw4.connectfour.ConnectFourImplTests" time="0.003"/>
+  <testcase name="testDrop_DoesNotSwitchPlayer_WhenOutOfBounds(int)[3]" classname="spw4.connectfour.ConnectFourImplTests" time="0.002"/>
+  <testcase name="testDrop_DoesNotSwitchPlayer_WhenOutOfBounds(int)[4]" classname="spw4.connectfour.ConnectFourImplTests" time="0.002"/>
+  <testcase name="testDrop_DoesNotSwitchPlayer_WhenOutOfBounds(int)[5]" classname="spw4.connectfour.ConnectFourImplTests" time="0.002"/>
+  <testcase name="testBaseConstructor_withInvalidPlayers(Player)[1]" classname="spw4.connectfour.ConnectFourImplTests" time="0.004"/>
+  <testcase name="testBaseConstructor_withInvalidPlayers(Player)[2]" classname="spw4.connectfour.ConnectFourImplTests" time="0.005"/>
+  <testcase name="testGameOver_withFullBoard_returnsTrue_noWinner" classname="spw4.connectfour.ConnectFourImplTests" time="0.003"/>
+  <testcase name="testGetPlayerAt_ChecksSameIndexAsBoard" classname="spw4.connectfour.ConnectFourImplTests" time="0.485"/>
+  <testcase name="testGameOver_withWinnerDiagonalDown_returnsTrue" classname="spw4.connectfour.ConnectFourImplTests" time="0.007"/>
+  <testcase name="testGameOver_withWinnerDiagonalDown_StepByStep_returnsTrue" classname="spw4.connectfour.ConnectFourImplTests" time="0.008"/>
+  <testcase name="testConstructorWithBoard_withInvalidPlayers(Player)[1]" classname="spw4.connectfour.ConnectFourImplTests" time="0.005"/>
+  <testcase name="testConstructorWithBoard_withInvalidPlayers(Player)[2]" classname="spw4.connectfour.ConnectFourImplTests" time="0.003"/>
+  <testcase name="testBaseConstructor_withValidPlayers(Player)[1]" classname="spw4.connectfour.ConnectFourImplTests" time="0.002"/>
+  <testcase name="testBaseConstructor_withValidPlayers(Player)[2]" classname="spw4.connectfour.ConnectFourImplTests" time="0.002"/>
+  <testcase name="testGameOver_withWinnerDiagonalUp_returnsTrue" classname="spw4.connectfour.ConnectFourImplTests" time="0.002"/>
+  <testcase name="testDrop_SwitchesPlayer_OnSuccess" classname="spw4.connectfour.ConnectFourImplTests" time="0.002"/>
+  <testcase name="testGameOver_withWinnerDiagonalUp_StepByStep_returnsTrue" classname="spw4.connectfour.ConnectFourImplTests" time="0.004"/>
+  <testcase name="testDrop_DoesNotSwitchPlayer_OnFullColumn" classname="spw4.connectfour.ConnectFourImplTests" time="0.002"/>
+  <testcase name="testGetCurrentPlayer_afterStart" classname="spw4.connectfour.ConnectFourImplTests" time="0.002"/>
+</testsuite>

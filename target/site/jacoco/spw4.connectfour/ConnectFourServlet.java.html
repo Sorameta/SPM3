@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConnectFourServlet.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ConnectFour Web Application</a> &gt; <a href="index.source.html" class="el_package">spw4.connectfour</a> &gt; <span class="el_source">ConnectFourServlet.java</span></div><h1>ConnectFourServlet.java</h1><pre class="source lang-java linenums">package spw4.connectfour;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.UUID;
+
+@WebServlet(&quot;/ConnectFour&quot;)
+<span class="nc" id="L14">public class ConnectFourServlet extends HttpServlet {</span>
+    private HashMap&lt;UUID, ConnectFour&gt; games;
+
+    @Override
+    public void init() throws ServletException {
+<span class="nc" id="L19">        super.init();</span>
+<span class="nc" id="L20">        games = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L21">    }</span>
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="nc" id="L25">        response.setContentType(&quot;text/html&quot;);</span>
+<span class="nc" id="L26">        PrintWriter writer = response.getWriter();</span>
+
+        try {
+<span class="nc" id="L29">            String action = request.getParameter(&quot;action&quot;);</span>
+<span class="nc bnc" id="L30" title="All 2 branches missed.">            if (action == null) action = &quot;&quot;;</span>
+
+<span class="nc bnc" id="L32" title="All 2 branches missed.">            if (&quot;new&quot;.equals(action)) {</span>
+<span class="nc" id="L33">                UUID id = UUID.randomUUID();</span>
+<span class="nc" id="L34">                ConnectFour newGame = new ConnectFourImpl(Player.red);</span>
+<span class="nc" id="L35">                games.put(id, newGame);</span>
+<span class="nc" id="L36">                writer.println(game2Html(id, newGame));</span>
+<span class="nc" id="L37">                return;</span>
+            }
+
+<span class="nc" id="L40">            String idString = request.getParameter(&quot;id&quot;);</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">            if (idString != null) {</span>
+<span class="nc" id="L42">                UUID id = UUID.fromString(idString);</span>
+<span class="nc" id="L43">                ConnectFour game = games.get(id);</span>
+
+<span class="nc bnc" id="L45" title="All 2 branches missed.">                if (!game.isGameOver()) {</span>
+<span class="nc bnc" id="L46" title="All 8 branches missed.">                    switch (action) {</span>
+                        case &quot;c1&quot;:
+<span class="nc" id="L48">                            game.drop(0);</span>
+<span class="nc" id="L49">                            break;</span>
+                        case &quot;c2&quot;:
+<span class="nc" id="L51">                            game.drop(1);</span>
+<span class="nc" id="L52">                            break;</span>
+                        case &quot;c3&quot;:
+<span class="nc" id="L54">                            game.drop(2);</span>
+<span class="nc" id="L55">                            break;</span>
+                        case &quot;c4&quot;:
+<span class="nc" id="L57">                            game.drop(3);</span>
+<span class="nc" id="L58">                            break;</span>
+                        case &quot;c5&quot;:
+<span class="nc" id="L60">                            game.drop(4);</span>
+<span class="nc" id="L61">                            break;</span>
+                        case &quot;c6&quot;:
+<span class="nc" id="L63">                            game.drop(5);</span>
+<span class="nc" id="L64">                            break;</span>
+                        case &quot;c7&quot;:
+<span class="nc" id="L66">                            game.drop(6);</span>
+                            break;
+                    }
+                }
+
+<span class="nc" id="L71">                writer.println(game2Html(id, games.get(id)));</span>
+<span class="nc" id="L72">                return;</span>
+            }
+
+<span class="nc" id="L75">            writer.println(&quot;invalid request&quot;);</span>
+        }
+<span class="nc" id="L77">        catch (Throwable t) {</span>
+<span class="nc" id="L78">            writer.println(t);</span>
+<span class="nc" id="L79">        }</span>
+<span class="nc" id="L80">    }</span>
+
+    private String game2Html(UUID id, ConnectFour game) {
+<span class="nc" id="L83">        StringBuffer sb = new StringBuffer();</span>
+
+<span class="nc" id="L85">        sb.append(&quot;&lt;!DOCTYPE html&gt;\n&quot;);</span>
+<span class="nc" id="L86">        sb.append(&quot;&lt;html lang=\&quot;en\&quot;&gt;\n&quot;);</span>
+<span class="nc" id="L87">        sb.append(&quot;&lt;head&gt;\n&quot;);</span>
+<span class="nc" id="L88">        sb.append(&quot;    &lt;meta charset=\&quot;UTF-8\&quot;&gt;\n&quot;);</span>
+<span class="nc" id="L89">        sb.append(&quot;    &lt;title&gt;Connect Four&lt;/title&gt;\n&quot;);</span>
+<span class="nc" id="L90">        sb.append(&quot;    &lt;link href=\&quot;css/bootstrap.min.css\&quot; rel=\&quot;stylesheet\&quot;/&gt;\n&quot;);</span>
+<span class="nc" id="L91">        sb.append(&quot;    &lt;link href=\&quot;icons/bootstrap-icons.css\&quot; rel=\&quot;stylesheet\&quot;/&gt;\n&quot;);</span>
+<span class="nc" id="L92">        sb.append(&quot;    &lt;script src=\&quot;js/bootstrap.min.js\&quot;&gt;&lt;/script&gt;\n&quot;);</span>
+<span class="nc" id="L93">        sb.append(&quot;&lt;/head&gt;\n&quot;);</span>
+<span class="nc" id="L94">        sb.append(&quot;&lt;body&gt;\n&quot;);</span>
+<span class="nc" id="L95">        sb.append(&quot;    &lt;h1 class=\&quot;m-5 text-center\&quot;&gt;Play Connect Four:&lt;/h1&gt;\n&quot;);</span>
+<span class="nc" id="L96">        sb.append(&quot;    &lt;div class=\&quot;row\&quot;&gt;\n&quot;);</span>
+<span class="nc" id="L97">        sb.append(&quot;        &lt;div class=\&quot;col\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L98">        sb.append(&quot;        &lt;div class=\&quot;col\&quot;&gt;\n&quot;);</span>
+<span class="nc" id="L99">        sb.append(&quot;            &lt;div class=\&quot;row text-center pb-4\&quot;&gt;\n&quot;);</span>
+<span class="nc" id="L100">        sb.append(&quot;                &lt;div class=\&quot;col\&quot;&gt;&lt;h5&gt;Player: &quot; + game.getPlayerOnTurn().toString().toUpperCase() + &quot;&lt;/h5&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L101">        sb.append(&quot;            &lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L102">        sb.append(&quot;            &lt;div class=\&quot;row\&quot;&gt;\n&quot;);</span>
+<span class="nc" id="L103">        sb.append(&quot;                &lt;div class=\&quot;col p-0\&quot;&gt;\n&quot;);</span>
+<span class="nc" id="L104">        sb.append(&quot;                    &lt;div class=\&quot;container p-0 text-center bg-secondary\&quot;&gt;\n&quot;);</span>
+<span class="nc" id="L105">        sb.append(&quot;                        &lt;div class=\&quot;row m-0 bg-white\&quot;&gt;\n&quot;);</span>
+<span class="nc" id="L106">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1\&quot;&gt;&lt;a role=\&quot;button\&quot; class=\&quot;btn btn-secondary p-1\&quot; href=\&quot;ConnectFour?id=&quot; + id + &quot;&amp;action=c1\&quot;&gt;&lt;i class=\&quot;bi-arrow-down\&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L107">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1\&quot;&gt;&lt;a role=\&quot;button\&quot; class=\&quot;btn btn-secondary p-1\&quot; href=\&quot;ConnectFour?id=&quot; + id + &quot;&amp;action=c2\&quot;&gt;&lt;i class=\&quot;bi-arrow-down\&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L108">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1\&quot;&gt;&lt;a role=\&quot;button\&quot; class=\&quot;btn btn-secondary p-1\&quot; href=\&quot;ConnectFour?id=&quot; + id + &quot;&amp;action=c3\&quot;&gt;&lt;i class=\&quot;bi-arrow-down\&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L109">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1\&quot;&gt;&lt;a role=\&quot;button\&quot; class=\&quot;btn btn-secondary p-1\&quot; href=\&quot;ConnectFour?id=&quot; + id + &quot;&amp;action=c4\&quot;&gt;&lt;i class=\&quot;bi-arrow-down\&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L110">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1\&quot;&gt;&lt;a role=\&quot;button\&quot; class=\&quot;btn btn-secondary p-1\&quot; href=\&quot;ConnectFour?id=&quot; + id + &quot;&amp;action=c5\&quot;&gt;&lt;i class=\&quot;bi-arrow-down\&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L111">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1\&quot;&gt;&lt;a role=\&quot;button\&quot; class=\&quot;btn btn-secondary p-1\&quot; href=\&quot;ConnectFour?id=&quot; + id + &quot;&amp;action=c6\&quot;&gt;&lt;i class=\&quot;bi-arrow-down\&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L112">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 mx-1\&quot;&gt;&lt;a role=\&quot;button\&quot; class=\&quot;btn btn-secondary p-1\&quot; href=\&quot;ConnectFour?id=&quot; + id + &quot;&amp;action=c7\&quot;&gt;&lt;i class=\&quot;bi-arrow-down\&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L113">        sb.append(&quot;                        &lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L114">        sb.append(&quot;                        &lt;div class=\&quot;row pt-1 m-0\&quot; style=\&quot;height:36px\&quot;&gt;\n&quot;);</span>
+<span class="nc" id="L115">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 0, 0) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L116">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 0, 1) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L117">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 0, 2) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L118">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 0, 3) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L119">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 0, 4) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L120">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 0, 5) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L121">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 mx-1 &quot; + getCellColor(game, 0, 6) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L122">        sb.append(&quot;                        &lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L123">        sb.append(&quot;                        &lt;div class=\&quot;row pt-1 m-0\&quot; style=\&quot;height:36px\&quot;&gt;\n&quot;);</span>
+<span class="nc" id="L124">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 1, 0) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L125">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 1, 1) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L126">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 1, 2) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L127">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 1, 3) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L128">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 1, 4) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L129">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 1, 5) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L130">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 mx-1 &quot; + getCellColor(game, 1, 6) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L131">        sb.append(&quot;                        &lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L132">        sb.append(&quot;                        &lt;div class=\&quot;row pt-1 m-0\&quot; style=\&quot;height:36px\&quot;&gt;\n&quot;);</span>
+<span class="nc" id="L133">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 2, 0) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L134">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 2, 1) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L135">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 2, 2) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L136">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 2, 3) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L137">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 2, 4) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L138">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 2, 5) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L139">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 mx-1 &quot; + getCellColor(game, 2, 6) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L140">        sb.append(&quot;                        &lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L141">        sb.append(&quot;                        &lt;div class=\&quot;row pt-1 m-0\&quot; style=\&quot;height:36px\&quot;&gt;\n&quot;);</span>
+<span class="nc" id="L142">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 3, 0) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L143">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 3, 1) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L144">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 3, 2) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L145">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 3, 3) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L146">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 3, 4) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L147">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 3, 5) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L148">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 mx-1 &quot; + getCellColor(game, 3, 6) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L149">        sb.append(&quot;                        &lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L150">        sb.append(&quot;                        &lt;div class=\&quot;row pt-1 m-0\&quot; style=\&quot;height:36px\&quot;&gt;\n&quot;);</span>
+<span class="nc" id="L151">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 4, 0) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L152">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 4, 1) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L153">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 4, 2) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L154">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 4, 3) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L155">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 4, 4) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L156">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 4, 5) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L157">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 mx-1 &quot; + getCellColor(game, 4, 6) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L158">        sb.append(&quot;                        &lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L159">        sb.append(&quot;                        &lt;div class=\&quot;row py-1 m-0\&quot; style=\&quot;height:40px\&quot;&gt;\n&quot;);</span>
+<span class="nc" id="L160">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 5, 0) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L161">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 5, 1) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L162">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 5, 2) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L163">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 5, 3) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L164">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 5, 4) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L165">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 ml-1 &quot; + getCellColor(game, 5, 5) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L166">        sb.append(&quot;                            &lt;div class=\&quot;col p-1 mx-1 &quot; + getCellColor(game, 5, 6) + &quot;\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L167">        sb.append(&quot;                        &lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L168">        sb.append(&quot;                    &lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L169">        sb.append(&quot;                &lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L170">        sb.append(&quot;            &lt;/div&gt;\n&quot;);</span>
+<span class="nc bnc" id="L171" title="All 4 branches missed.">        if (game.isGameOver() &amp;&amp; game.getWinner() == Player.yellow) {</span>
+<span class="nc" id="L172">            sb.append(&quot;                &lt;div class=\&quot;row text-center pt-4\&quot;&gt;\n&quot;);</span>
+<span class="nc" id="L173">            sb.append(&quot;                    &lt;div class=\&quot;col\&quot;&gt;&lt;h1&gt;&lt;span class=\&quot;badge bad badge-warning w-75\&quot;&gt;YELLOW WINS&lt;/span&gt;&lt;/h1&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L174">            sb.append(&quot;                &lt;/div&gt;\n&quot;);</span>
+<span class="nc bnc" id="L175" title="All 4 branches missed.">        } else if (game.isGameOver() &amp;&amp; game.getWinner() == Player.red) {</span>
+<span class="nc" id="L176">            sb.append(&quot;                &lt;div class=\&quot;row text-center pt-4\&quot;&gt;\n&quot;);</span>
+<span class="nc" id="L177">            sb.append(&quot;                    &lt;div class=\&quot;col\&quot;&gt;&lt;h1&gt;&lt;span class=\&quot;badge badge-danger w-75\&quot;&gt;RED WINS&lt;/span&gt;&lt;/h1&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L178">            sb.append(&quot;                &lt;/div&gt;\n&quot;);</span>
+<span class="nc bnc" id="L179" title="All 4 branches missed.">        } else if (game.isGameOver() &amp;&amp; game.getWinner() == Player.none) {</span>
+<span class="nc" id="L180">            sb.append(&quot;                &lt;div class=\&quot;row text-center pt-4\&quot;&gt;\n&quot;);</span>
+<span class="nc" id="L181">            sb.append(&quot;                    &lt;div class=\&quot;col\&quot;&gt;&lt;h1&gt;&lt;span class=\&quot;badge badge-secondary w-75\&quot;&gt;DRAW&lt;/span&gt;&lt;/h1&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L182">            sb.append(&quot;                &lt;/div&gt;\n&quot;);</span>
+        }
+<span class="nc" id="L184">        sb.append(&quot;            &lt;div class=\&quot;row text-center pt-4\&quot;&gt;\n&quot;);</span>
+<span class="nc" id="L185">        sb.append(&quot;                &lt;div class=\&quot;col\&quot;&gt;&lt;a role=\&quot;button\&quot; class=\&quot;btn btn-danger w-75\&quot; href=\&quot;ConnectFour?action=new\&quot;&gt;New Game&lt;/a&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L186">        sb.append(&quot;                &lt;div class=\&quot;col\&quot;&gt;&lt;a role=\&quot;button\&quot; class=\&quot;btn btn-info w-75\&quot; href=\&quot;ConnectFour?id=&quot; + id + &quot;\&quot;&gt;Refresh&lt;/a&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L187">        sb.append(&quot;            &lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L188">        sb.append(&quot;        &lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L189">        sb.append(&quot;        &lt;div class=\&quot;col\&quot;&gt;&lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L190">        sb.append(&quot;    &lt;/div&gt;\n&quot;);</span>
+<span class="nc" id="L191">        sb.append(&quot;&lt;/body&gt;\n&quot;);</span>
+<span class="nc" id="L192">        sb.append(&quot;&lt;/html&gt;\n&quot;);</span>
+
+<span class="nc" id="L194">        return sb.toString();</span>
+    }
+
+    private String getCellColor(ConnectFour game, int row, int col) {
+<span class="nc bnc" id="L198" title="All 3 branches missed.">        return switch (game.getPlayerAt(row, col)) {</span>
+<span class="nc" id="L199">            case red -&gt; &quot;bg-danger&quot;;</span>
+<span class="nc" id="L200">            case yellow -&gt; &quot;bg-warning&quot;;</span>
+<span class="nc" id="L201">            default -&gt; &quot;bg-light&quot;;</span>
+        };
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

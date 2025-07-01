@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: spw4.connectfour.BoardTests
+-------------------------------------------------------------------------------
+Tests run: 33, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.665 s -- in spw4.connectfour.BoardTests
