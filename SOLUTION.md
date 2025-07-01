@@ -65,6 +65,9 @@ Stop Test Manuell ausgelöst:
 
 ![img_12.png](img_12.png)
 
+![image](https://github.com/user-attachments/assets/32942a5d-65dc-49dd-a23f-270e4b72422c)
+
+
 ### Task 1.c
 
 Nicht gemacht.
